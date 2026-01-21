@@ -2,6 +2,20 @@ import pandas as pd
 import streamlit as st
 import duckdb
 
+st.write("""
+Spaced repetition system SQL practice
+""")
+
+
+option = st.selectbox(
+    "what would you like to review?",
+    ("Joins", "GroupBy", "Windows functions"),
+    index=None,
+    placeholder='select contact method...',
+)
+
+st.write("ou selected ", option)
+
 df = pd.DataFrame(
     {"lot" : [1,2,3,4],
      "prix" : [10, 11, 24, 30],
