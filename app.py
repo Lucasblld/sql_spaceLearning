@@ -6,15 +6,15 @@ st.write("""
 Spaced repetition system SQL practice
 """)
 
+with st.sidebar:
+    option = st.selectbox(
+        "what would you like to review?",
+        ("Joins", "GroupBy", "Windows functions"),
+        index=None,
+        placeholder='select contact method...',
+    )
 
-option = st.selectbox(
-    "what would you like to review?",
-    ("Joins", "GroupBy", "Windows functions"),
-    index=None,
-    placeholder='select contact method...',
-)
-
-st.write("ou selected ", option)
+    st.write("You selected ", option)
 
 df = pd.DataFrame(
     {"lot" : [1,2,3,4],
