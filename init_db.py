@@ -71,4 +71,7 @@ order_stock = pd.read_csv(io.StringIO(CSV3))
 con.execute(
     """
     CREATE TABLE IF NOT EXISTS order_stock AS SELECT * from order_stock
-""")
+"""
+)
+
+con.close()
