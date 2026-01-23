@@ -11,7 +11,7 @@ con = duckdb.connect(database="data/exercises_sql.duckdb", read_only=False)
 data = {
     "theme": ["cross_join", "window_functions"],
     "exercise_name": ["beverage_and_food", "simple_window"],
-    "tables": [["beverages", "food_items"], ["simple_window"]],
+    "tables": [["beverages", "food_items"], ["order_stock"]],
     "last_reviewed": ["1970-01-01", "1970-01-01"],
 }
 
@@ -53,3 +53,25 @@ con.execute(
 CREATE TABLE IF NOT EXISTS food_items AS SELECT * from food_items
 """
 )
+
+# ----------
+# WINDOW FUNCTION
+# ----------
+
+CSV3 = """
+order_stock,price
+1,100
+2,300
+3,100
+4,50
+"""
+
+order_stock = pd.read_csv(io.StringIO(CSV3))
+
+con.execute(
+    """
+    CREATE TABLE IF NOT EXISTS order_stock AS SELECT * from order_stock
+"""
+)
+
+con.close()
