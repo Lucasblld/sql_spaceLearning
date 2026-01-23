@@ -9,10 +9,10 @@ con = duckdb.connect(database="data/exercises_sql.duckdb", read_only=False)
 # EXERCISES LIST
 # ----------
 data = {
-    "theme": ["cross_join", 'window_functions'],
+    "theme": ["cross_join", "window_functions"],
     "exercise_name": ["beverage_and_food", "simple_window"],
     "tables": [["beverages", "food_items"], ["simple_window"]],
-    "last_reviewed": ["1970-01-01", "1970-01-01"]
+    "last_reviewed": ["1970-01-01", "1970-01-01"],
 }
 
 memory_state_df = pd.DataFrame(data)

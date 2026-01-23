@@ -1,12 +1,10 @@
-import io
-
 import duckdb
-import pandas as pd
 import streamlit as st
 
+SOLUTION_PATH = "answer"
 con = duckdb.connect(database="data/exercises_sql.duckdb", read_only=False)
 
-#solution = duckdb.sql(ANSWER_STR).df()
+# solution = duckdb.sql(ANSWER_STR).df()
 
 # SIDE BAR
 with st.sidebar:
@@ -26,9 +24,9 @@ st.write("""Spaced repetition system SQL practice""")
 
 query = st.text_area(label="votre sql ici", key="user_input")
 
-#if query:
-#    result = duckdb.sql(query).df()
-#    st.dataframe(result)
+if query:
+    result = con.execute(query).df()
+    st.dataframe(result)
 #
 #    if len(result.columns) != len(solution.columns):
 #        st.write("some columns are missing")
@@ -43,15 +41,25 @@ query = st.text_area(label="votre sql ici", key="user_input")
 #    except KeyError as e:
 #        st.write("Some columns are missing")
 #
-#tab2, tab3 = st.tabs(["Tables", "Solution"])
+tab2, tab3 = st.tabs(["Tables", "Solution"])
 #
-#with tab2:
-#    st.write("beverages")
-#    st.dataframe(beverages)
-#    st.write("food items")
-#    st.dataframe(food_items)
-#
-#with tab3:
+with tab2:
+    exersice_tables = exersice.loc[0, "tables"]
+    for table in exersice_tables:
+        st.write(f"table : {table}")
+        df_table = con.execute(f"SELECT * FROM {table}").df()
+        st.dataframe(df_table)
+
+with tab3:
+    exercise_name = exersice.loc[0, "exercise_name"]
+    with open(
+        f"{SOLUTION_PATH}/{exercise_name}.sql", "r", encoding="utf-8"
+    ) as solution_file:
+        sql = solution_file.read()
+        st.text(sql)
+        solution_table = con.execute(sql).df()
+        st.dataframe(solution_table)
+
 #    st.write("query solution")
 #    st.write(ANSWER_STR)
 #    st.write("result")
